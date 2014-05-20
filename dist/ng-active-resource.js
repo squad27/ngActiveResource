@@ -1575,6 +1575,10 @@ angular.module('ActiveResource').provider('ARBase', function () {
             instance.validates(validations);
             instance[propertyName] = data[propertyName];
           };
+          _this.prototype.datetime = function (propertyName) {
+            var instance = this;
+            instance[propertyName] = new Date(data[propertyName]);
+          };
           // Instance#computedProperty(name, valueFn, dependents)
           //
           // @param name       {string}         - The name of the property to be computed from other properties
