@@ -790,6 +790,20 @@ angular.module('ActiveResource').provider('ARAssociation', function () {
 String.prototype.downcase = function () {
   return this.toLowerCase();
 };
+// Function.prototype.name
+//
+// Monkey patch IE to ES6 name function property
+if (Function.prototype.name === undefined && Object.defineProperty !== undefined) {
+  Object.defineProperty(Function.prototype, 'name', {
+    get: function () {
+      var funcNameRegex = /function\s([^(]{1,})\(/;
+      var results = funcNameRegex.exec(this.toString());
+      return results && results.length > 1 ? results[1].trim() : '';
+    },
+    set: function (value) {
+    }
+  });
+}
 angular.module('ActiveResource').provider('ARCache', function () {
   this.$get = function () {
     function Cache() {
